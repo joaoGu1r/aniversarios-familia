@@ -1,20 +1,69 @@
 // 📋 LISTA FIXA DE ANIVERSARIANTES
 // Observação: Os meses em JavaScript iniciam em 0 (0 = Janeiro, 10 = Novembro, 11 = Dezembro)
 const baseBirthdays = [
+    // Janeiro 
     { month: 0, day: 8, name: "Luciano", emoji: "👨", relation: "" }, 
     {month: 0 ,day: 16, name:"João", emoji:"👨", relation:""},
-    { month: 1, day: 10, name: "Daniel", emoji: "👦", relation: "" },
-    { month: 2, day: 5, name: "Miguel", emoji: "👶", relation: "" },
-    { month: 3, day: 3, name: "Von", emoji: "🧑", relation: "" },
+    {month: 0 ,day: 20, name:"Jorge", emoji:"👦", relation:""},
+    
+    // Fevereiro 
+     { month: 1, day: 10, name: "Daniel", emoji: "👦", relation: "" },
+    
+    // Março
+     { month: 2, day: 5, name: "Miguel", emoji: "👶", relation: "" },
+    { month: 2, day: 11, name: "Cândida", emoji: "👩", relation: "" },
+    { month: 2, day: 28, name: "Andrea", emoji: "👩", relation: "" },
+    
+    // Abril
+     { month: 3, day: 3, name: "Von", emoji: "🧑", relation: "" },
+    { month: 3, day: 4, name: "Vitória", emoji: "👩", relation: "" },
+    { month: 3, day: 19, name: "Severino", emoji: "🧑", relation: "" },
+    { month: 3, day: 29, name: "Juliana", emoji: "👩", relation: "" },
+    // Maio
     { month: 4, day: 3, name: "Rafael", emoji: "👨", relation: "" },
+    { month: 4, day: 11, name: "Paulina", emoji: "👩", relation: "" },
+    { month: 4, day: 15, name: "Gustavo", emoji: "👨", relation: "" },
+    { month: 4, day: 16, name: "Zita", emoji: "👩", relation: "" },
+    // Junho
     { month: 5, day: 16, name: "Alisson", emoji: "👨", relation: "" },
+    { month: 5, day: 16, name: "Lívia", emoji: "👶", relation: "" },
+    { month: 5, day: 16, name: "Antônio", emoji: "👨", relation: "" },
+    
+    // Julho
     { month: 6, day: 16, name: "Carmem", emoji: "👩", relation: "" },
-    { month: 7, day: 11, name: "Seve", emoji: "🧓", relation: "" },
-    { month: 8, day: 30, name: "Maria", emoji: "👩", relation: "" },
+    { month: 6, day: 26, name: "Joelma", emoji: "👩", relation: "" },
+    { month: 6, day: 26, name: "Arthur", emoji: "🧑", relation: "" },
+    
+    // Agosto
+    { month: 7, day: 11, name: "Seve", emoji: "👩", relation: "" },
+    { month: 7, day: 21, name: "Clara", emoji: "👩", relation: "" },
+    { month: 7, day: 21, name: "Gael", emoji: "🧑", relation: "" },
+    { month: 7, day: 29, name: "Vovó Maria", emoji: "🧓", relation: "" },
+    
+   // Setembro
+    { month: 8, day: 30, name: "Maria", emoji: "💰", relation: "pode me dá o presente em pix" },
+    // Outubro
     { month: 9, day: 7, name: "Luan", emoji: "🧑", relation: "" },
+    { month: 9, day: 8, name: "Gabriel", emoji: "👶", relation: "" },
+    { month: 9, day: 19, name: "Priscila", emoji: "👩", relation: "" },
+    { month: 9, day: 27, name: "Ceci", emoji: "👩", relation: "" },
+    
+    // Novembro
     { month: 10, day: 3, name: "Guilherme", emoji: "👨", relation: "" },
-    { month: 10, day: 3, name: "Pedro", emoji: "👨", relation: "" },
-    { month: 11, day: 10, name: "Josina", emoji: "👩", relation: "" }
+    { month: 10, day: 3, name: "Pedro", emoji: "🧑", relation: "" },
+    { month: 10, day: 08, name: "Jonas", emoji: "👴", relation: "" },
+    { month: 10, day: 13, name: "Kauã", emoji: "🧑", relation: "" },
+    { month: 10, day: 27, name: "Cristovão", emoji: "👨", relation: "" },
+    { month: 10, day: 30, name: "Maria", emoji: "👩", relation: "" },
+    
+    // Dezembro
+    { month: 11, day: 10, name: "Josina", emoji: "👩", relation: "" },
+    { month: 11, day: 17, name: "Hugo Lima", emoji: "🎻", relation: "" },
+    { month: 11, day: 21, name: "Ray", emoji: "👩", relation: "" },
+    { month: 11, day: 22, name: "Guigui", emoji: "🧒", relation: "" },
+    { month: 11, day: 25, name: "Welligton", emoji: "🎅", relation: "" }
+    
+    
     
 ];
 
