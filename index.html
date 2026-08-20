@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>🎂 Aniversários da Família</title>
+    <title>🎉 Lista Aniversariantes da Família Lucena e Silva</title>
+
+    <!-- Ícone da aba do navegador -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎉</text></svg>">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <!-- Cabeçalho com estatísticas -->
+        <!-- Cabeçalho -->
         <header>
             <div class="header-top">
-                <h1>🎉Lista Aniversariantes da Família Lucena e Silva</h1>
+                <h1>🎉 Lista Aniversariantes da Família Lucena e Silva</h1>
             </div>
             <p class="subtitle">Datas comemorativas de todos os membros</p>
             
-            <!-- Barra de estatísticas do topo -->
+            <!-- Barra de estatísticas -->
             <div class="stats-bar">
                 <div class="stat-item">
                     <span class="stat-number" id="totalPessoas">0</span>
-                    <span class="stat-label">Total de membros</span>
+                    <span class="stat-label">Total de Membros</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" id="aniversariosMes">0</span>
@@ -27,16 +31,16 @@
                 </div>
                 <div class="stat-item">
                     <span class="stat-number" id="proximoAniversario">-</span>
-                    <span class="stat-label">Próximo Aniversariante </span>
+                    <span class="stat-label">Próximo Aniversariante</span>
                 </div>
             </div>
         </header>
 
-        <!-- Lista sanfona dos 12 meses (preenchida via JavaScript) -->
+        <!-- Contêiner onde os meses serão gerados pelo script.js -->
         <div class="month-accordion" id="monthAccordion"></div>
     </div>
 
-    <!-- Script principal -->
+    <!-- Chamada do arquivo JavaScript -->
     <script src="script.js"></script>
 </body>
 </html>
