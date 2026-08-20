@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🎂 Aniversários da Família</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header simplificado sem a árvore genealógica -->
+        <header>
+            <div class="header-top">
+                <h1>🎉 Aniversários da Família</h1>
+            </div>
+            <p class="subtitle">Acompanhe as datas especiais de todo mundo!</p>
+            
+            <!-- Barra de estatísticas -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalPessoas">0</span>
+                    <span class="stat-label">Total Cadastrado</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="aniversariosMes">0</span>
+                    <span class="stat-label">Neste Mês</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="proximoAniversario">-</span>
+                    <span class="stat-label">Próximo</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Lista sanfona dos 12 meses -->
+        <div class="month-accordion" id="monthAccordion">
+            <!-- Gerado dinamicamente via JS -->
+        </div>
+
+        <!-- Botão flutuante para adicionar aniversariante -->
+        <button class="add-btn" onclick="openAddModal()">
+            ➕ Adicionar Familiar
+        </button>
+    </div>
+
+    <!-- Modal de cadastro -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAddModal()">&times;</span>
+            <h2>➕ Adicionar Familiar</h2>
+            <form id="addForm" onsubmit="addPerson(event)">
+                <div class="form-group">
+                    <label for="personName">Nome completo:</label>
+                    <input type="text" id="personName" required placeholder="Ex: João Silva">
+                </div>
+                <div class="form-group">
+                    <label for="personDate">Data de nascimento:</label>
+                    <input type="date" id="personDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="personRelation">Parentesco:</label>
+                    <select id="personRelation">
+                        <option value="Filho(a)">Filho(a)</option>
+                        <option value="Neto(a)">Neto(a)</option>
+                        <option value="Bisneto(a)">Bisneto(a)</option>
+                        <option value="Mãe/Pai">Mãe/Pai</option>
+                        <option value="Avó/Avô">Avó/Avô</option>
+                        <option value="Sobrinho(a)">Sobrinho(a)</option>
+                        <option value="Primo(a)">Primo(a)</option>
+                        <option value="Cônjuge">Cônjuge</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="personEmoji">Emoji/Ícone:</label>
+                    <select id="personEmoji">
+                        <option value="👨">👨 Homem</option>
+                        <option value="👩">👩 Mulher</option>
+                        <option value="👦">👦 Menino</option>
+                        <option value="👧">👧 Menina</option>
+                        <option value="👶">👶 Bebê</option>
+                        <option value="🧓">🧓 Idoso(a)</option>
+                        <option value="👴">👴 Vovô</option>
+                        <option value="👵">👵 Vovó</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-btn">💾 Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
