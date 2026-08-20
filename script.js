@@ -24,7 +24,7 @@ const monthNames = [
 ];
 
 // Chave com versão atualizada para limpar dados legados do navegador
-const STORAGE_KEY = 'family_birthdays_v3_relations';
+const STORAGE_KEY = 'family_birthdays_v4_relations';
 
 // 🔄 Carregar lista do LocalStorage com fallback para baseBirthdays
 function getBirthdayList() {
