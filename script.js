@@ -1,21 +1,21 @@
 // 📋 LISTA BASE DE ANIVERSARIANTES (Mês: 0 = Janeiro ... 10 = Novembro, 11 = Dezembro)
 const baseBirthdays = [
-    { month: 0, day: 8, name: "Luciano", emoji: "👨", relation: "Filho" },  
-    { month: 1, day: 10, name: "Daniel", emoji: "👦", relation: "Neto" },
-    { month: 2, day: 5, name: "Miguel", emoji: "👶", relation: "Neto" },
-    { month: 3, day: 3, name: "Von", emoji: "🧑", relation: "Neto" },
-    { month: 4, day: 3, name: "Rafael", emoji: "👨", relation: "Neto" },
-    { month: 5, day: 16, name: "Alisson", emoji: "👨", relation: "Neto" },
-    { month: 6, day: 16, name: "Carmem", emoji: "👩", relation: "Filha" },
-    { month: 7, day: 11, name: "Seve", emoji: "🧓", relation: "Filho" },
-    { month: 8, day: 30, name: "Maria", emoji: "👩", relation: "Matriarca" },
-    { month: 9, day: 7, name: "Luan", emoji: "🧑", relation: "Neto" },
+    { month: 0, day: 8, name: "Luciano", emoji: "👨", relation: "" },  
+    { month: 1, day: 10, name: "Daniel", emoji: "👦", relation: "" },
+    { month: 2, day: 5, name: "Miguel", emoji: "👶", relation: "" },
+    { month: 3, day: 3, name: "Von", emoji: "🧑", relation: "" },
+    { month: 4, day: 3, name: "Rafael", emoji: "👨", relation: "" },
+    { month: 5, day: 16, name: "Alisson", emoji: "👨", relation: "" },
+    { month: 6, day: 16, name: "Carmem", emoji: "👩", relation: "" },
+    { month: 7, day: 11, name: "Seve", emoji: "🧓", relation: "" },
+    { month: 8, day: 30, name: "Maria", emoji: "👩", relation: "" },
+    { month: 9, day: 7, name: "Luan", emoji: "🧑", relation: "" },
     
     // ⭐ SEPARADOS EM 2 OBJETOS: Isso faz a contagem somar 2 em Novembro
-    { month: 10, day: 3, name: "Guilherme", emoji: "👨", relation: "Bisneto" },
-    { month: 10, day: 3, name: "Pedro", emoji: "👨", relation: "Neto" },
+    { month: 10, day: 3, name: "Guilherme", emoji: "👨", relation: "" },
+    { month: 10, day: 3, name: "Pedro", emoji: "👨", relation: "" },
     
-    { month: 11, day: 10, name: "Josina", emoji: "👩", relation: "Esposa" }
+    { month: 11, day: 10, name: "Josina", emoji: "👩", relation: "" }
 ];
 
 const monthNames = [
