@@ -1,5 +1,11 @@
-// 📋 LISTA FIXA DE ANIVERSARIANTES
-// Observação: Os meses em JavaScript iniciam em 0 (0 = Janeiro, 10 = Novembro, 11 = Dezembro)
+// ==========================================
+// 📋 LISTA DE ANIVERSARIANTES - FAMÍLIA LUCENA E SILVA
+// ==========================================
+// Nota sobre os meses:
+// 0 = Janeiro   | 1 = Fevereiro | 2 = Março     | 3 = Abril
+// 4 = Maio      | 5 = Junho     | 6 = Julho     | 7 = Agosto
+// 8 = Setembro  | 9 = Outubro   | 10 = Novembro | 11 = Dezembro
+
 const baseBirthdays = [
     // Janeiro 
     { month: 0, day: 8, name: "Luciano", emoji: "👨", relation: "" }, 
@@ -17,7 +23,7 @@ const baseBirthdays = [
     // Abril
      { month: 3, day: 3, name: "Von", emoji: "🧑", relation: "" },
     { month: 3, day: 4, name: "Vitória", emoji: "👩", relation: "" },
-    { month: 3, day: 19, name: "Severino", emoji: "👨 relation: "" },
+    { month: 3, day: 19, name: "Severino", emoji: "👨", relation: "" },
     { month: 3, day: 29, name: "Juliana", emoji: "👩", relation: "" },
     // Maio
     { month: 4, day: 3, name: "Rafael", emoji: "👨", relation: "" },
@@ -67,19 +73,19 @@ const baseBirthdays = [
     
 ];
 
-// Nomes dos 12 meses do ano
+// Nomes dos 12 meses
 const monthNames = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 ];
 
-// 🎯 Função para verificar se a data é exatamente hoje
+// 🎯 Função auxiliar para identificar se o aniversário é hoje
 function isToday(month, day) {
     const today = new Date();
     return today.getMonth() === Number(month) && today.getDate() === Number(day);
 }
 
-// 🔍 Função para verificar se o aniversário está próximo (nos próximos 7 dias)
+// 🔍 Função auxiliar para identificar se falta até 7 dias
 function isSoon(month, day) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -94,68 +100,72 @@ function isSoon(month, day) {
     return diffDays > 0 && diffDays <= 7;
 }
 
-// 📊 Atualiza as métricas da barra superior
+// 📊 Atualiza os 3 blocos numéricos do topo
 function updateStats() {
+    const totalEl = document.getElementById('totalPessoas');
+    const mesEl = document.getElementById('aniversariosMes');
+    const proxEl = document.getElementById('proximoAniversario');
+
+    if (!totalEl || !mesEl || !proxEl) return;
+
     const now = new Date();
     const currentMonth = now.getMonth();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    
-    // 1. Total de pessoas cadastradas na lista
-    document.getElementById('totalPessoas').textContent = baseBirthdays.length;
-    
-    // 2. Total de pessoas que fazem aniversário neste mês
+
+    // 1. Total de membros cadastrados
+    totalEl.textContent = baseBirthdays.length;
+
+    // 2. Aniversários deste mês
     const thisMonthList = baseBirthdays.filter(b => Number(b.month) === currentMonth);
-    document.getElementById('aniversariosMes').textContent = thisMonthList.length;
-    
-    // 3. Cálculo do próximo aniversário mais próximo
+    mesEl.textContent = thisMonthList.length;
+
+    // 3. Cálculo do aniversariante mais próximo
     let minDiffDays = Infinity;
     let nextPerson = null;
-    
+
     baseBirthdays.forEach(b => {
         let bDate = new Date(today.getFullYear(), Number(b.month), Number(b.day));
         if (bDate < today) {
             bDate.setFullYear(today.getFullYear() + 1);
         }
         const diffDays = Math.ceil((bDate - today) / (1000 * 60 * 60 * 24));
-        
+
         if (diffDays >= 0 && diffDays < minDiffDays) {
             minDiffDays = diffDays;
             nextPerson = b;
         }
     });
-    
-    const proximoEl = document.getElementById('proximoAniversario');
+
     if (nextPerson) {
-        proximoEl.textContent = minDiffDays === 0 ? 'Hoje! 🎉' : `${minDiffDays}dias (${nextPerson.name})`;
+        proxEl.textContent = minDiffDays === 0 ? 'Hoje! 🎉' : `${minDiffDays}d (${nextPerson.name})`;
     } else {
-        proximoEl.textContent = '-';
+        proxEl.textContent = '-';
     }
 }
 
-// 🏗️ Constrói a interface com os blocos de cada mês
+// 🏗️ Monta e renderiza os 12 meses na tela
 function buildCalendar() {
     const container = document.getElementById('monthAccordion');
     if (!container) return;
-    
+
     container.innerHTML = '';
     const currentMonth = new Date().getMonth();
-    
+
     monthNames.forEach((monthName, monthIndex) => {
-        // Filtra e ordena os aniversariantes do mês atual
         const monthBirthdays = baseBirthdays
             .filter(b => Number(b.month) === monthIndex)
             .sort((a, b) => Number(a.day) - Number(b.day));
-        
+
         const isCurrent = monthIndex === currentMonth;
-        
+
         const item = document.createElement('div');
         item.className = 'month-item';
-        
+
         // Cabeçalho do mês
         const header = document.createElement('div');
         header.className = 'month-header-accordion';
         header.onclick = () => toggleMonth(monthIndex);
-        
+
         const title = document.createElement('div');
         title.className = 'month-title';
         title.innerHTML = `
@@ -163,47 +173,47 @@ function buildCalendar() {
             <span class="month-badge">${monthBirthdays.length}</span>
             ${isCurrent ? '<span title="Mês Atual">📍</span>' : ''}
         `;
-        
+
         const arrow = document.createElement('span');
         arrow.className = 'month-arrow';
         arrow.textContent = '▼';
         arrow.id = `arrow-${monthIndex}`;
-        
+
         header.appendChild(title);
         header.appendChild(arrow);
         item.appendChild(header);
-        
-        // Conteúdo com os aniversariantes
+
+        // Bloco de conteúdo do mês
         const content = document.createElement('div');
         content.className = 'month-content-accordion';
         content.id = `content-${monthIndex}`;
-        
-        // O mês atual já começa aberto para facilitar
+
+        // O mês corrente começa aberto por padrão
         if (isCurrent) {
             content.classList.add('open');
             arrow.classList.add('open');
         }
-        
+
         if (monthBirthdays.length === 0) {
             content.innerHTML = '<p style="color: #a0aec0; padding: 10px 0; font-size: 0.9em;">😴 Nenhum aniversário neste mês.</p>';
         } else {
-            // Agrupar pessoas que fazem aniversário no mesmo dia
+            // Agrupar aniversariantes do mesmo dia
             const groupedByDay = {};
             monthBirthdays.forEach(b => {
                 const dayKey = b.day;
                 if (!groupedByDay[dayKey]) groupedByDay[dayKey] = [];
                 groupedByDay[dayKey].push(b);
             });
-            
+
             Object.keys(groupedByDay).sort((a, b) => Number(a) - Number(b)).forEach(day => {
                 const people = groupedByDay[day];
                 const dayFormatted = String(day).padStart(2, '0');
-                
+
                 if (people.length > 1) {
-                    // Quando há mais de uma pessoa no mesmo dia
+                    // Grupo com 2 ou mais pessoas no mesmo dia
                     const groupDiv = document.createElement('div');
                     groupDiv.className = 'birthday-group';
-                    
+
                     const groupHeader = document.createElement('div');
                     groupHeader.className = 'group-header';
                     groupHeader.innerHTML = `
@@ -211,7 +221,7 @@ function buildCalendar() {
                         <span style="font-size:0.8em; font-weight:normal; color:#718096;">${people.length} aniversariantes</span>
                     `;
                     groupDiv.appendChild(groupHeader);
-                    
+
                     people.forEach(person => {
                         const pDiv = document.createElement('div');
                         pDiv.className = 'group-person';
@@ -223,20 +233,20 @@ function buildCalendar() {
                         `;
                         groupDiv.appendChild(pDiv);
                     });
-                    
+
                     content.appendChild(groupDiv);
                 } else {
-                    // Quando há apenas uma pessoa no dia
+                    // Apenas 1 pessoa no dia
                     const person = people[0];
                     const div = document.createElement('div');
                     div.className = 'birthday-item-list';
-                    
+
                     if (isToday(person.month, person.day)) {
                         div.classList.add('today');
                     } else if (isSoon(person.month, person.day)) {
                         div.classList.add('soon');
                     }
-                    
+
                     div.innerHTML = `
                         <span class="day">Dia ${dayFormatted}</span>
                         <span class="name">${person.name}</span>
@@ -244,22 +254,22 @@ function buildCalendar() {
                         <span class="emoji">${person.emoji || '🎂'}</span>
                         ${isToday(person.month, person.day) ? '<span style="color:#38a169; font-weight:bold; font-size:0.8em;">🎁 HOJE!</span>' : ''}
                     `;
-                    
+
                     content.appendChild(div);
                 }
             });
         }
-        
+
         item.appendChild(content);
         container.appendChild(item);
     });
 }
 
-// 🔽 Alterna a visualização do mês (abrir/fechar)
+// 🔽 Alterna expansão de cada mês
 function toggleMonth(index) {
     const content = document.getElementById(`content-${index}`);
     const arrow = document.getElementById(`arrow-${index}`);
-    
+
     if (content) {
         content.classList.toggle('open');
         if (arrow) {
@@ -268,7 +278,7 @@ function toggleMonth(index) {
     }
 }
 
-// 🚀 Inicializa a aplicação assim que o DOM estiver pronto
+// 🚀 Execução automática ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
     buildCalendar();
     updateStats();
