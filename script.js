@@ -32,8 +32,8 @@ const baseBirthdays = [
     { month: 4, day: 16, name: "Zita", emoji: "👩", relation: "" },
     // Junho
     { month: 5, day: 16, name: "Alisson", emoji: "👨", relation: "" },
-    { month: 5, day: 16, name: "Lívia", emoji: "👶", relation: "" },
-    { month: 5, day: 16, name: "Antônio", emoji: "👨", relation: "" },
+    { month: 5, day: 17, name: "Lívia", emoji: "👶", relation: "" },
+    { month: 5, day: 21, name: "Antônio", emoji: "👨", relation: "" },
     
     // Julho
     { month: 6, day: 16, name: "Carmem", emoji: "👩", relation: "" },
