@@ -1,101 +1,34 @@
-// 📋 LISTA BASE DE ANIVERSARIANTES (Mês: 0 = Janeiro ... 10 = Novembro, 11 = Dezembro)
+// 📋 LISTA FIXA DE ANIVERSARIANTES
+// Observação: Os meses em JavaScript iniciam em 0 (0 = Janeiro, 10 = Novembro, 11 = Dezembro)
 const baseBirthdays = [
-    { month: 0, day: 8, name: "Luciano", emoji: "👨", relation: "" },  
-    { month: 1, day: 10, name: "Daniel", emoji: "👦", relation: "" },
-    { month: 2, day: 5, name: "Miguel", emoji: "👶", relation: "" },
-    { month: 3, day: 3, name: "Von", emoji: "🧑", relation: "" },
-    { month: 4, day: 3, name: "Rafael", emoji: "👨", relation: "" },
-    { month: 5, day: 16, name: "Alisson", emoji: "👨", relation: "" },
-    { month: 6, day: 16, name: "Carmem", emoji: "👩", relation: "" },
-    { month: 7, day: 11, name: "Seve", emoji: "🧓", relation: "" },
-    { month: 8, day: 30, name: "Maria", emoji: "👩", relation: "" },
-    { month: 9, day: 7, name: "Luan", emoji: "🧑", relation: "" },
-    
-    // ⭐ SEPARADOS EM 2 OBJETOS: Isso faz a contagem somar 2 em Novembro
-    { month: 10, day: 3, name: "Guilherme", emoji: "👨", relation: "" },
-    { month: 10, day: 3, name: "Pedro", emoji: "👨", relation: "" },
-    
-    { month: 11, day: 10, name: "Josina", emoji: "👩", relation: "" }
+    { month: 0, day: 8, name: "Luciano", emoji: "👨", relation: "Filho" },  
+    { month: 1, day: 10, name: "Daniel", emoji: "👦", relation: "Neto" },
+    { month: 2, day: 5, name: "Miguel", emoji: "👶", relation: "Neto" },
+    { month: 3, day: 3, name: "Von", emoji: "🧑", relation: "Neto" },
+    { month: 4, day: 3, name: "Rafael", emoji: "👨", relation: "Neto" },
+    { month: 5, day: 16, name: "Alisson", emoji: "👨", relation: "Neto" },
+    { month: 6, day: 16, name: "Carmem", emoji: "👩", relation: "Filha" },
+    { month: 7, day: 11, name: "Seve", emoji: "🧓", relation: "Filho" },
+    { month: 8, day: 30, name: "Maria", emoji: "👩", relation: "Matriarca" },
+    { month: 9, day: 7, name: "Luan", emoji: "🧑", relation: "Bisneto" },
+    { month: 10, day: 3, name: "Guilherme", emoji: "👨", relation: "Bisneto" },
+    { month: 10, day: 3, name: "Pedro", emoji: "👨", relation: "Bisneto" },
+    { month: 11, day: 10, name: "Josina", emoji: "👩", relation: "Esposa" }
 ];
 
+// Nomes dos 12 meses do ano
 const monthNames = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
 ];
 
-// Chave com versão atualizada para limpar dados legados do navegador
-const STORAGE_KEY = 'family_birthdays_v4_relations';
-
-// 🔄 Carregar lista do LocalStorage com fallback para baseBirthdays
-function getBirthdayList() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-        try {
-            const parsed = JSON.parse(saved);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-                return parsed.map(person => ({
-                    ...person,
-                    month: Number(person.month),
-                    day: Number(person.day)
-                }));
-            }
-        } catch (e) {
-            console.error("Erro ao ler dados salvos:", e);
-        }
-    }
-    // Salva a lista inicial corrigida
-    saveBirthdayList(baseBirthdays);
-    return [...baseBirthdays];
-}
-
-// 💾 Salvar dados atualizados
-function saveBirthdayList(list) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-}
-
-// ➕ Adicionar novo familiar
-function addPerson(event) {
-    event.preventDefault();
-    
-    const name = document.getElementById('personName').value.trim();
-    const dateInput = document.getElementById('personDate').value;
-    const relation = document.getElementById('personRelation').value;
-    const emoji = document.getElementById('personEmoji').value;
-    
-    if (!name || !dateInput) {
-        alert('⚠️ Preencha todos os campos!');
-        return;
-    }
-    
-    const [, monthStr, dayStr] = dateInput.split('-');
-    const month = parseInt(monthStr, 10) - 1; // Ajuste para base 0 (0-11)
-    const day = parseInt(dayStr, 10);
-    
-    const newPerson = {
-        month: month,
-        day: day,
-        name: name,
-        emoji: emoji || '🎂',
-        relation: relation
-    };
-    
-    const list = getBirthdayList();
-    list.push(newPerson);
-    saveBirthdayList(list);
-    
-    closeAddModal();
-    buildCalendar();
-    updateStats();
-    
-    alert(`✅ ${name} adicionado(a) com sucesso!`);
-}
-
-// 🎯 Verificações de data
+// 🎯 Função para verificar se a data é exatamente hoje
 function isToday(month, day) {
     const today = new Date();
     return today.getMonth() === Number(month) && today.getDate() === Number(day);
 }
 
+// 🔍 Função para verificar se o aniversário está próximo (nos próximos 7 dias)
 function isSoon(month, day) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -110,25 +43,24 @@ function isSoon(month, day) {
     return diffDays > 0 && diffDays <= 7;
 }
 
-// 📊 Atualizar a contagem total e o próximo aniversariante
+// 📊 Atualiza as métricas da barra superior
 function updateStats() {
-    const list = getBirthdayList();
     const now = new Date();
     const currentMonth = now.getMonth();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     
-    // Total geral
-    document.getElementById('totalPessoas').textContent = list.length;
+    // 1. Total de pessoas cadastradas na lista
+    document.getElementById('totalPessoas').textContent = baseBirthdays.length;
     
-    // Aniversários no mês atual
-    const thisMonthList = list.filter(b => Number(b.month) === currentMonth);
+    // 2. Total de pessoas que fazem aniversário neste mês
+    const thisMonthList = baseBirthdays.filter(b => Number(b.month) === currentMonth);
     document.getElementById('aniversariosMes').textContent = thisMonthList.length;
     
-    // Próximo aniversário
+    // 3. Cálculo do próximo aniversário mais próximo
     let minDiffDays = Infinity;
     let nextPerson = null;
     
-    list.forEach(b => {
+    baseBirthdays.forEach(b => {
         let bDate = new Date(today.getFullYear(), Number(b.month), Number(b.day));
         if (bDate < today) {
             bDate.setFullYear(today.getFullYear() + 1);
@@ -149,17 +81,17 @@ function updateStats() {
     }
 }
 
-// 🏗️ Montar o Accordion dos Meses
+// 🏗️ Constrói a interface com os blocos de cada mês
 function buildCalendar() {
     const container = document.getElementById('monthAccordion');
     if (!container) return;
     
     container.innerHTML = '';
-    const list = getBirthdayList();
     const currentMonth = new Date().getMonth();
     
     monthNames.forEach((monthName, monthIndex) => {
-        const monthBirthdays = list
+        // Filtra e ordena os aniversariantes do mês atual
+        const monthBirthdays = baseBirthdays
             .filter(b => Number(b.month) === monthIndex)
             .sort((a, b) => Number(a.day) - Number(b.day));
         
@@ -168,7 +100,7 @@ function buildCalendar() {
         const item = document.createElement('div');
         item.className = 'month-item';
         
-        // Cabeçalho do mês com a badge de contagem real
+        // Cabeçalho do mês
         const header = document.createElement('div');
         header.className = 'month-header-accordion';
         header.onclick = () => toggleMonth(monthIndex);
@@ -190,11 +122,12 @@ function buildCalendar() {
         header.appendChild(arrow);
         item.appendChild(header);
         
-        // Área expansível do mês
+        // Conteúdo com os aniversariantes
         const content = document.createElement('div');
         content.className = 'month-content-accordion';
         content.id = `content-${monthIndex}`;
         
+        // O mês atual já começa aberto para facilitar
         if (isCurrent) {
             content.classList.add('open');
             arrow.classList.add('open');
@@ -203,7 +136,7 @@ function buildCalendar() {
         if (monthBirthdays.length === 0) {
             content.innerHTML = '<p style="color: #a0aec0; padding: 10px 0; font-size: 0.9em;">😴 Nenhum aniversário neste mês.</p>';
         } else {
-            // Agrupar pessoas por dia
+            // Agrupar pessoas que fazem aniversário no mesmo dia
             const groupedByDay = {};
             monthBirthdays.forEach(b => {
                 const dayKey = b.day;
@@ -216,7 +149,7 @@ function buildCalendar() {
                 const dayFormatted = String(day).padStart(2, '0');
                 
                 if (people.length > 1) {
-                    // Quando há 2 ou mais pessoas no mesmo dia (Ex: Guilherme e Pedro)
+                    // Quando há mais de uma pessoa no mesmo dia
                     const groupDiv = document.createElement('div');
                     groupDiv.className = 'birthday-group';
                     
@@ -242,7 +175,7 @@ function buildCalendar() {
                     
                     content.appendChild(groupDiv);
                 } else {
-                    // Quando há apenas 1 pessoa no dia
+                    // Quando há apenas uma pessoa no dia
                     const person = people[0];
                     const div = document.createElement('div');
                     div.className = 'birthday-item-list';
@@ -271,7 +204,7 @@ function buildCalendar() {
     });
 }
 
-// 🔽 Toggle da sanfona
+// 🔽 Alterna a visualização do mês (abrir/fechar)
 function toggleMonth(index) {
     const content = document.getElementById(`content-${index}`);
     const arrow = document.getElementById(`arrow-${index}`);
@@ -284,18 +217,7 @@ function toggleMonth(index) {
     }
 }
 
-// 📌 Funções do Modal
-function openAddModal() {
-    document.getElementById('addModal').classList.add('active');
-    document.getElementById('personName').focus();
-}
-
-function closeAddModal() {
-    document.getElementById('addModal').classList.remove('active');
-    document.getElementById('addForm').reset();
-}
-
-// 🚀 Inicialização
+// 🚀 Inicializa a aplicação assim que o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', () => {
     buildCalendar();
     updateStats();
