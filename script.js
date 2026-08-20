@@ -51,7 +51,7 @@ const baseBirthdays = [
     // Novembro
     { month: 10, day: 3, name: "Guilherme", emoji: "👨", relation: "" },
     { month: 10, day: 3, name: "Pedro", emoji: "🧑", relation: "" },
-    { month: 10, day: 08, name: "Jonas", emoji: "👴", relation: "" },
+    { month: 10, day: 8, name: "Jonas", emoji: "👴", relation: "" },
     { month: 10, day: 13, name: "Kauã", emoji: "🧑", relation: "" },
     { month: 10, day: 27, name: "Cristovão", emoji: "👨", relation: "" },
     { month: 10, day: 30, name: "Maria", emoji: "👩", relation: "" },
